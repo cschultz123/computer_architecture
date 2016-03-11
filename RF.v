@@ -17,6 +17,10 @@ module RF(clk, read_reg_1, read_reg_2, write_reg, write_data, reg_write, read_da
 
 	// registry mem
 	reg [31:0] registry [0:31]; // 32 registers each 32 bits long
+	
+	initial begin
+		$readmemh("rf_seed.txt", registry);
+	end
 	 
 	always @(posedge clk) begin
 		if (reg_write)

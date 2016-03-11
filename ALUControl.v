@@ -1,38 +1,38 @@
-module ALUControl (ALUOp, FuncCode, ALUCtl);
+module ALUControl (alu_op, func, alu_ctrl);
 
-input [1:0] ALUOp;
+input [1:0] alu_op;
 
-input [5:0] FuncCode;
+input [5:0] func;
 
-output reg [3:0] ALUCtl;
+output reg [3:0] alu_ctrl;
 
-always @(ALUOp, FuncCode)
+always @(alu_op, func)
 
-	if(ALUOp==0)
+	if(alu_op==0)
 
-		ALUCtl<=2;
+		alu_ctrl<=2;
 
-	else if(ALUOp==1)
+	else if(alu_op==1)
 
-		ALUCtl<=6;
+		alu_ctrl<=6;
 
 	else
 
-		case(FuncCode)
+		case(func)
 
-			32: ALUCtl <= 2; //add
+			32: alu_ctrl <= 2; //add
 
-			34: ALUCtl <= 6; //subtract
+			34: alu_ctrl <= 6; //subtract
 
-			36: ALUCtl <= 0; //and
+			36: alu_ctrl <= 0; //and
 
-			37: ALUCtl <= 1; //or
+			37: alu_ctrl <= 1; //or
 
-			39: ALUCtl <= 12; //nor
+			39: alu_ctrl <= 12; //nor
 
-			42: ALUCtl <= 7; //slt
+			42: alu_ctrl <= 7; //slt
 
-			default: ALUCtl <= 15; //should not happen
+			default: alu_ctrl <= 15; //should not happen
 
 		endcase
 endmodule

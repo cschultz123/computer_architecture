@@ -12,20 +12,20 @@ module DM(clk, mem_read, mem_write, addr, write_data, read_data);
 	output reg [31:0] read_data;
 	
 	// memory
-	reg [31:0] mem [255:0];
+	reg [31:0] dm_mem [127:0];
 	
 	// initialize memory
 	initial begin
-		$readmemh("dm_seed.txt", mem);
+		$readmemh("dm_seed.txt", dm_mem);
 	end
 	
 	always @(posedge clk) begin
 		// read data if read flag is set
 		if (mem_read)
-			read_data <= mem[addr[31:2]];
+			read_data <= dm_mem[addr[31:2]];
 		// write data if write flag is set
 		else if (mem_write)
-			mem[addr[31:2]] <= write_data;
+			dm_mem[addr[31:2]] <= write_data;
 	end
 	
 endmodule

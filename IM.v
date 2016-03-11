@@ -1,14 +1,23 @@
-module IM(addr, clk, inst);
-	input [31:0] addr;
+module IM(clk, addr, inst);
+	// control input	
 	input clk;
-	output reg [31:0] inst;
-	reg [31:0] mem [255:0];
 	
+	// data input
+	input [31:0] addr;
+	
+	// output
+	output reg [31:0] inst;
+	
+	// memory
+	reg [31:0] im_mem [127:0];
+	
+	// initialize memory
 	initial begin
-		$readmemh("im_seed.txt", mem);
+		$readmemh("im_seed.txt", im_mem);
 	end
 	
 	always @(posedge clk) begin
-		inst = mem[addr[31:2]];
+		inst <= im_mem[addr[31:2]];
 	end
+	
 endmodule
